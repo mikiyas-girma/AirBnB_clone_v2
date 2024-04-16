@@ -17,7 +17,7 @@ class FileStorage:
             for v, k in self.__objects.items():
                 if type(v) is cls:
                     FilteringTheDict[k] = v
-                return FilteringTheDict
+            return FilteringTheDict
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
