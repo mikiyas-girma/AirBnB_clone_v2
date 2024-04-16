@@ -121,12 +121,16 @@ class HBNBCommand(cmd.Cmd):
             if not args:
                 raise SyntaxError()
             given = args.split(" ")
-            # print(given[0], type(given[0]))
             new_obj = HBNBCommand.classes[given[0]]()
             for i in range(1, len(given)):
                 key, value = list(given[i].split("="))
                 if value[0] == "\"":
                     value = value.strip('\"').replace("_", " ")
+                else:
+                    try:
+                        value = eval(value)
+                    except (SyntaxError, NameError):
+                        continue
                 if key and value:
                     setattr(new_obj, key, value)
             storage.save()
@@ -217,6 +221,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
+
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
@@ -224,7 +229,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage._FileStorage__objects.items():
                 print_list.append(str(v))
 
-        print(print_list)
+        print("[" + ", ".join(print_list) + "]")
 
     def help_all(self):
         """ Help information for the all command """
