@@ -9,14 +9,15 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """returns the list of objects of one type of class"""
+        """function that returns the list of objects of one type of class"""
         if cls is None:
             return self.__objects
         else:
             FilteringTheDict = {}
-            for v, k in self.__objects.items():
+            for k, v in self.__objects.items():
                 if type(v) is cls:
                     FilteringTheDict[k] = v
+
             return FilteringTheDict
 
     def new(self, obj):
