@@ -4,7 +4,7 @@ import cmd
 import sys
 from shlex import split
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
                         continue
                 if key and value:
                     setattr(new_obj, key, value)
-            storage.save()
+            new_obj.save()
             print(new_obj.id)
 
         except SyntaxError:
@@ -222,11 +222,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
 
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print("[" + ", ".join(print_list) + "]")
