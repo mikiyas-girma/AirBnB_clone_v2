@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Unittest for console.py"""
 import unittest
 from unittest.mock import patch
 from io import StringIO
@@ -28,6 +30,8 @@ class TestHBNBCommand(unittest.TestCase):
         self.mock_stdout.seek(0)
 
     def test_create(self):
+        """Test the create command"""
+
         self.console.onecmd("create")
         self.assertEqual("** class name missing **\n",
                          self.mock_stdout.getvalue())
@@ -44,6 +48,7 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertIn("[State]", self.mock_stdout.getvalue())
 
     def test_do_quit(self):
+        """Test the quit command"""
         with patch('sys.stdout', new=StringIO()) as output:
             with self.assertRaises(SystemExit):
                 self.console.onecmd("quit")
