@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
                'Review': Review
               }
@@ -121,6 +121,8 @@ class HBNBCommand(cmd.Cmd):
             if not args:
                 raise SyntaxError()
             given = args.split(" ")
+            if given[0] not in HBNBCommand.classes:
+                raise NameError()
             new_obj = HBNBCommand.classes[given[0]]()
             for i in range(1, len(given)):
                 key, value = list(given[i].split("="))
@@ -217,11 +219,11 @@ class HBNBCommand(cmd.Cmd):
         print_list = []
 
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split(' ')[0]
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            # print("got from db", storage.all().items())
+
             for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
