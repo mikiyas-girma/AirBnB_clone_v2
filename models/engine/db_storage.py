@@ -40,8 +40,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session
         and returns a dictionary of models"""
-        classes = [User, State, Place,
-                   Review, City, Amenity]
+        classes = [State, User, City]
         objects = {}
         if cls is None:
             for cls in classes:
