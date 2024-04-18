@@ -18,7 +18,8 @@ from models.amenity import Amenity
 
 
 class DBStorage:
-    """dbstorage engine's class
+    """dbstorage engine's class used for creating the db engine, session
+    and managing the database storage and operations on it
     """
     __engine = None
     __session = None
@@ -40,7 +41,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session
         and returns a dictionary of models"""
-        classes = [State, User, City]
+        classes = [State, User, City, Amenity, Place, Review]
         objects = {}
         if cls is None:
             for cls in classes:
