@@ -2,7 +2,6 @@
 """ Console Module """
 import cmd
 import sys
-from shlex import split
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -22,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     classes = {
                'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
+               'Review': Review, 'BaseModel': BaseModel
               }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
@@ -82,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
                         # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
-        except Exception as mess:
+        except Exception:
             pass
         finally:
             return line
@@ -204,7 +203,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")

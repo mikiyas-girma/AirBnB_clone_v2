@@ -2,13 +2,6 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -55,3 +48,7 @@ class TestHBNBCommand(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 self.console.onecmd("quit")
         self.assertEqual('', output.getvalue())
+
+
+if __name__ == "__main__":
+    unittest.main()
