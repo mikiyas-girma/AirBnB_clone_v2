@@ -6,7 +6,7 @@ apt-get install -y nginx
 
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
-echo "Sample static html  page" > /data/web_static/releases/test/index.html
+echo "Holberton School" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 chown -R ubuntu /data/
@@ -28,11 +28,11 @@ printf %s "server {
 	return 301 http://cuberule.com/;
     }
 
-    error_page 404 /404.html;
+    error_page 404 /custom_404.html;
     location /404 {
       root /var/www/html;
       internal;
     }
 }" > /etc/nginx/sites-available/default
 
-nginx -s reload
+service nginx restart
