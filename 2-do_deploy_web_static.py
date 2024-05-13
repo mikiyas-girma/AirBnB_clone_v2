@@ -3,7 +3,7 @@
 script (based on the file 1-pack_web_static.py) that
 distributes an archive to your web servers
 """
-from fabric.api import env, put, run, sudo
+from fabric.api import env, put, run
 from os import path, getenv
 
 env.hosts = ['54.175.89.74', '35.153.83.42']
@@ -33,53 +33,52 @@ def do_deploy(archive_path):
         print("Failed to upload archive to server")
         return False
 
-    with sudo():
-        print("Removing old release directory...")
-        if run("rm -rf /data/web_static/releases/{}/".
-               format(foldername)).failed:
-            print("Failed to remove old release directory")
-            return False
+    print("Removing old release directory...")
+    if run("rm -rf /data/web_static/releases/{}/".
+            format(foldername)).failed:
+        print("Failed to remove old release directory")
+        return False
 
-        print("Creating new release directory...")
-        if run("mkdir -p /data/web_static/releases/{}/".
-               format(foldername)).failed:
-            print("Failed to create new release directory")
-            return False
+    print("Creating new release directory...")
+    if run("mkdir -p /data/web_static/releases/{}/".
+            format(foldername)).failed:
+        print("Failed to create new release directory")
+        return False
 
-        print("Extracting archive...")
-        if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-               format(filename, foldername)).failed:
-            print("Failed to extract archive")
-            return False
+    print("Extracting archive...")
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+            format(filename, foldername)).failed:
+        print("Failed to extract archive")
+        return False
 
-        print("Removing archive from server...")
-        if run("rm /tmp/{}".format(filename)).failed:
-            print("Failed to remove archive from server")
-            return False
+    print("Removing archive from server...")
+    if run("rm /tmp/{}".format(filename)).failed:
+        print("Failed to remove archive from server")
+        return False
 
-        print("Moving files to correct location...")
-        if run("mv /data/web_static/releases/{}/web_static/*\
-               /data/web_static/releases/{}/".
-               format(foldername, foldername)).failed:
-            print("Failed to move files to correct location")
-            return False
+    print("Moving files to correct location...")
+    if run("mv /data/web_static/releases/{}/web_static/*\
+            /data/web_static/releases/{}/".
+            format(foldername, foldername)).failed:
+        print("Failed to move files to correct location")
+        return False
 
-        print("Removing old web_static directory...")
-        if run("rm -rf /data/web_static/releases/{}/web_static".
-               format(foldername)).failed:
-            print("Failed to remove old web_static directory")
-            return False
+    print("Removing old web_static directory...")
+    if run("rm -rf /data/web_static/releases/{}/web_static".
+            format(foldername)).failed:
+        print("Failed to remove old web_static directory")
+        return False
 
-        print("Removing old current symlink...")
-        if run("rm -rf /data/web_static/current").failed:
-            print("Failed to remove old current symlink")
-            return False
+    print("Removing old current symlink...")
+    if run("rm -rf /data/web_static/current").failed:
+        print("Failed to remove old current symlink")
+        return False
 
-        print("Creating new current symlink...")
-        if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
-               format(foldername)).failed:
-            print("Failed to create new current symlink")
-            return False
+    print("Creating new current symlink...")
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
+            format(foldername)).failed:
+        print("Failed to create new current symlink")
+        return False
 
     print("Deployment successful")
     return True
