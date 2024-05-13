@@ -60,7 +60,8 @@ file { '/data/web_static/current':
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':
-  path => '/usr/bin/:/usr/local/bin/:/bin/'
+  path    => '/usr/bin/:/usr/local/bin/:/bin/',
+  require => File['/data']
 }
 
 file { '/var/www':
@@ -76,7 +77,7 @@ file { '/var/www/html/index.html':
   content => "Holberton School Nginx\n"
 } ->
 
-file { '/var/www/html/404.html':
+file { '/var/www/html/custom_404.html':
   ensure  => 'present',
   content => "Ceci n'est pas une page\n"
 } ->
