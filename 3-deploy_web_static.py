@@ -85,7 +85,7 @@ def do_deploy(archive_path):
         return False
 
     print("Removing old current symlink...")
-    if run("rm -rf /data/web_static/current").failed:
+    if run("rm -f /data/web_static/current").failed:
         print("Failed to remove old current symlink")
         return False
 
