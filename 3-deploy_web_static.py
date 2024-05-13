@@ -90,7 +90,7 @@ def do_deploy(archive_path):
         return False
 
     print("Creating new current symlink...")
-    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
+    if run("ln -sf /data/web_static/releases/{}/ /data/web_static/current".
             format(foldername)).failed:
         print("Failed to create new current symlink")
         return False
