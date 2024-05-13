@@ -1,7 +1,7 @@
 # Configures a web server for deployment of web_static.
 
 # nginx configuration file
-$nginx_conf = "server {
+$nginx_conf = 'server {
     listen 80 default_server;
     listen [::]:80 default_server;
     add_header X-Served-By $HOSTNAME;
@@ -9,20 +9,20 @@ $nginx_conf = "server {
     index  index.html index.htm;
 
     location /hbnb_static {
-	alias /data/web_static/current;
-	index index.html index.htm;
+        alias /data/web_static/current;
+        index index.html index.htm;
     }
 
     location /redirect_me {
-	return 301 http://permanentredirect.com/;
+        return 301 http://permanentredirect.com/;
     }
 
     error_page 404 /custom_404.html;
     location /404 {
-      root /var/www/html;
-      internal;
+        root /var/www/html;
+        internal;
     }
-}"
+}'
 
 package { 'nginx':
   ensure   => 'present',
