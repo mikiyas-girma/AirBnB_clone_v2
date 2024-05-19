@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def index():
+    """returns get request to index page"""
     return "Hello HBNB!"
 
 
