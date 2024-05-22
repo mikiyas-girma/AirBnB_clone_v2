@@ -20,6 +20,7 @@ class State(BaseModel, Base):
     )
 
     if getenv("HBNB_TYPE_STORAGE") != "db":
+
         @property
         def cities(self):
             """returns list of city instances with state_id"""
